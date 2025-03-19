@@ -26,3 +26,4 @@ services:
       --skip-pull-image
       --debug
       --template child/template.yaml
+      ${WARM_CONTAINERS_SWITCH}
