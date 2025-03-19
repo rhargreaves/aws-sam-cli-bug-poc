@@ -8,13 +8,18 @@ make build
 
 ## To Reproduce
 
-Works:
+### Works
 ```
 WARM_CONTAINERS_SWITCH="" make start
 ```
 
-Both fail:
+### Failures
+
 ```
-WARM_CONTAINERS_SWITCH="--warm-containers LAZY" make start
-WARM_CONTAINERS_SWITCH="--warm-containers EAGER" make start
+$ WARM_CONTAINERS_SWITCH="--warm-containers LAZY" make start
+$ WARM_CONTAINERS_SWITCH="--warm-containers EAGER" make start
+
+...
+
+samcli.lib.utils.file_observer.FileObserverException: Can not observe non exist path
 ```
