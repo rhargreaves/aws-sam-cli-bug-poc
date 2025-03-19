@@ -1,0 +1,26 @@
+services:
+  sam:
+    build:
+      context: .
+      dockerfile: Dockerfile.sam
+    volumes:
+      - ${PROJECT_ROOT}:${PROJECT_ROOT}
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: ${PROJECT_ROOT}
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+    environment:
+      - SAM_CLI_CONTAINER_CONNECTION_TIMEOUT=10
+    command: >
+      local start-api
+      --host 0.0.0.0
+      --container-host-interface 0.0.0.0
+      --container-host ${CONTAINER_HOST}
+      --docker-network aws-sam-cli-bug-poc_default
+      --skip-pull-image
+      --warm-containers EAGER
